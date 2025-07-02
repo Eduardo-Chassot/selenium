@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.By;
 
 @RunWith(Parameterized.class)
-public class TesteItens {
+public class TesteItensEdit {
 	private DSL dsl;
 	private static ItensPage page = new ItensPage();
 	private static LoginPage loginPage = new LoginPage();
@@ -54,7 +54,6 @@ public class TesteItens {
 		dsl = new DSL();
 		
 		page.irParaItens();
-		page.inicarCriacao();
 	}
 
 	public static String gerarCodigo15Digitos() {
@@ -69,14 +68,16 @@ public class TesteItens {
 	@Parameters
 	public static Collection<Object[]> getCollection() {
 		return Arrays.asList(new Object[][] {
-			{"I", "DG 046d9", "397", "Item " + gerarCodigo15Digitos(), "312", "1000", true, true, "Error: Já existe um Elemento com o mesmo código!"},
-			{"I", gerarCodigo15Digitos(), "397", "Item Z", "407", "15", false, false, "Error: Já existe um Elemento com o mesmo nome!"},
-			{"A", gerarCodigo15Digitos(), "397", "Item " + gerarCodigo15Digitos(), "407", "10", true, false, "Item cadastrado com sucesso!"}
+			{"I", "Duplicado", "397", "Item " + gerarCodigo15Digitos(), "312", "1000", true, true, "Error: Já existe um Elemento com o mesmo código!"},
+			{"I", gerarCodigo15Digitos(), "397", "Duplicado", "407", "15", false, false, "Error: Já existe um Elemento com o mesmo nome!"},
+			{"A", "Editar", "397", "Editar", "407", "10", true, false, "Item editado com sucesso!"}
 		});
 	}
 
 	@Test
 	public void deveValidarRegrasNegocioItens() throws IOException {
+		
+		page.clicarEditarPorNome("Editar");
 
 		System.out.println("Preenchendo nome...");
 		page.setNome(nome);
@@ -106,38 +107,4 @@ public class TesteItens {
 		
 	}
 	
-	@Test
-	public void validarInsercao() throws IOException{
-		
-		if (!resposta.equals("Item cadastrado com sucesso!")) {
-	        System.out.println("Ignorando inserção para itens não cadastrados");
-	        return;
-	    }
-		
-		page.irParaItens();
-		page.clicarEditarPorNome(nome);
-		
-		Assert.assertEquals(nome, page.obterValorNome());
-		Assert.assertEquals(codigo, page.obterValorCodigo());
-		Assert.assertEquals(unidadeMedida, page.obterValorUnidadeMedida());
-		Assert.assertEquals(categoria, page.obterValorCategoria());
-		Assert.assertEquals(valorMinimo, page.obterValorMinimo());
-		Assert.assertEquals(policiaFederal, page.isPoliciaFederalMarcado());
-		Assert.assertEquals(exercito, page.isExercitoMarcado());
-		
-	}
-	
-	@Test
-	public void deveExcluir() throws IOException {
-		
-	    if (!resposta.equals("Item cadastrado com sucesso!")) {
-	        System.out.println("Ignorando exclusão para itens não cadastrados");
-	        return;
-	    }
-	    
-	    page.irParaItens();
-	    System.out.println(nome);
-	    page.clicarExcluirPorNome(nome);
-	    Assert.assertEquals("Sucesso\nElemento inativado com sucesso!", dsl.obterTexto(By.xpath(page.pathToast)));
-	}
 }

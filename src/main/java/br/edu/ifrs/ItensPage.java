@@ -6,17 +6,18 @@ import com.gargoylesoftware.htmlunit.javascript.host.Console;
 
 public class ItensPage {
 
-	private String pathBotaoItem = "/html/body/app-root/app-header/header/div/div/ul[1]/li[2]/a";
+	public String pathBotaoItem = "/html/body/app-root/app-header/header/div/div/ul[1]/li[2]/a";
 	public String pathMensagem = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/p-toast/div/p-toastitem/div/div/div/div[2]";
-	private String pathBotaoIniciarCriacao = "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[4]/div/a";
-	private String pathBotaoSubmit = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[2]/button";
+	public String pathBotaoIniciarCriacao = "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[4]/div/a";
+	public String pathBotaoSubmit = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[2]/button";
 	
-	private String inputCodigo            = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[2]/input";
-	private String inputNome              = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[3]/input";
-	private String inputQuantidadeMinima  = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[6]/input";
-	private String pathAcceptModal 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/app-confirm-modal/div/div/div/div[3]/button[2]";
-	private String pathFilterName 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[3]/div/input";
-	private String pathFilterBtn 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[4]/div/button[2]";
+	public String inputCodigo            = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[2]/input";
+	public String inputNome              = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[3]/input";
+	public String inputQuantidadeMinima  = "/html/body/app-root/app-container/main/div/app-cadastro-elemento/form/div[1]/div[1]/div/div/div[6]/input";
+	public String pathAcceptModal 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/app-confirm-modal/div/div/div/div[3]/button[2]";
+	public String pathToast 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/p-toast/div";
+	public String pathFilterName 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[3]/div/input";
+	public String pathFilterBtn 			= "/html/body/app-root/app-container/main/div/app-lista-elemento/form/div/div[4]/div/button[2]";
 
 	
 	private DSL dsl = new DSL();
@@ -66,13 +67,50 @@ public class ItensPage {
 	}
 	
 	public void clicarExcluirPorNome(String nomeItem) {
-		dsl.escrever(By.xpath(pathFilterName), nomeItem);
-		dsl.clicarBotao(pathFilterBtn);
+		this.filtrarPorNome(nomeItem);
         String xpathBotaoExcluir = "//td[contains(normalize-space(.), '" + nomeItem + "')]/parent::tr//i[contains(@class, 'fa-ban')]";
-        System.out.println(xpathBotaoExcluir);
         dsl.clicarBotao(xpathBotaoExcluir);
         dsl.clicarBotao(pathAcceptModal);
     }
+	
+	public void clicarEditarPorNome(String nomeItem){
+		this.filtrarPorNome(nomeItem);
+        String xpathBotaoEditar = "//td[contains(normalize-space(.), '" + nomeItem + "')]/parent::tr//i[contains(@class, 'fa-regular')]";
+        dsl.clicarBotao(xpathBotaoEditar);
+	}
+	
+	private void filtrarPorNome(String nomeItem) {
+		dsl.escrever(By.xpath(pathFilterName), nomeItem);
+		dsl.clicarBotao(pathFilterBtn);
+	}
+	
+	public String obterValorNome() {
+		return dsl.obterValorCampo(By.xpath(inputNome));
+	}
+
+	public String obterValorCodigo() {
+		return dsl.obterValorCampo(By.xpath(inputCodigo));
+	}
+
+	public String obterValorUnidadeMedida() {
+		return dsl.obterValueCombo("unidadeMedidaId");
+	}
+
+	public String obterValorCategoria() {
+		return dsl.obterValueCombo("categoriaId");
+	}
+
+	public String obterValorMinimo() {
+		return dsl.obterValorCampo(By.xpath(inputQuantidadeMinima));
+	}
+
+	public boolean isPoliciaFederalMarcado() {
+		return dsl.isCheckMarcado("monitoradoPF");
+	}
+
+	public boolean isExercitoMarcado() {
+		return dsl.isCheckMarcado("exercito");
+	}
 	
 	
 }

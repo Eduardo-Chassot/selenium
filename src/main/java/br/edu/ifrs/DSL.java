@@ -32,18 +32,24 @@ public class DSL {
 		wait(By.id(idCampo));
 		return DriverFactory.getDriver().findElement(By.id(idCampo)).getAttribute("value");
 	}
+	public String obterValorCampo(By by) {
+		wait(by);
+		return DriverFactory.getDriver().findElement(by).getAttribute("value");
+	}
 	
 	// Radio buttons e Checkboxes 
 	public void clicarRadio(String id) {
 		DriverFactory.getDriver().findElement(By.id(id)).click();
 	}
 	public boolean isRadioMarcado(String id){
+		wait(By.id(id));
 		return DriverFactory.getDriver().findElement(By.id(id)).isSelected();
 	}
 	public void clicarCheck(String id) {
 		DriverFactory.getDriver().findElement(By.id(id)).click();
 	}
 	public boolean isCheckMarcado(String id){
+		wait(By.id(id));
 		return DriverFactory.getDriver().findElement(By.id(id)).isSelected();
 	}
 	
@@ -74,10 +80,43 @@ public class DSL {
 	}
 	
 	public String obterValorCombo(String id) {
+		wait(By.id(id));
 		WebElement element = DriverFactory.getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		return combo.getFirstSelectedOption().getText();
 	}
+	
+	public String obterValueCombo(String id) {
+		waitUntilOptionsPopulated(id);
+		WebElement element = DriverFactory.getDriver().findElement(By.id(id));
+		Select combo = new Select(element);
+		return combo.getFirstSelectedOption().getAttribute("value");
+	}
+	public String obterValueCombo(By by) {
+		waitUntilOptionsPopulated(by);
+		WebElement element = DriverFactory.getDriver().findElement(by);
+		Select combo = new Select(element);
+		return combo.getFirstSelectedOption().getAttribute("value");
+	}
+	
+	private void waitUntilOptionsPopulated(By by) {
+	    WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), DriverProperty.WAIT_TIME);
+	    wait.until(driver -> {
+	        WebElement selectElem = driver.findElement(by);
+	        Select select = new Select(selectElem);
+	        return select.getOptions().size() > 0;
+	    });
+	}
+	private void waitUntilOptionsPopulated(String id) {
+	    WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), DriverProperty.WAIT_TIME);
+	    wait.until(driver -> {
+	        WebElement selectElem = driver.findElement(By.id(id));
+	        Select select = new Select(selectElem);
+	        return select.getOptions().size() > 0;
+	    });
+	}
+	
+	
 	public List<String> obterValoresCombo(String id) {
 		WebElement element = DriverFactory.getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
@@ -138,3 +177,4 @@ public class DSL {
 		return valor;
 	}
 }
+
