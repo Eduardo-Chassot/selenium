@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
+
 // https://www.selenium.dev/documentation/pt-br/guidelines_and_recommendations/domain_specific_language/
 
 public class DSL {
@@ -17,6 +19,10 @@ public class DSL {
 	private void wait(By by) {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), DriverProperty.WAIT_TIME);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+	}
+	
+	public void reload() {
+		DriverFactory.getDriver().navigate().refresh();
 	}
 	
 	// TextFields e TextAreas
@@ -61,6 +67,7 @@ public class DSL {
 	}
 	
 	public void selecionarComboByValue(String id, String valor) {
+		waitUntilOptionsPopulated(id);
 		WebElement element = DriverFactory.getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		combo.selectByValue(valor);

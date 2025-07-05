@@ -112,5 +112,9 @@ public class ItensPage {
 		return dsl.isCheckMarcado("exercito");
 	}
 	
+	public void reload(){
+		dsl.reload();
+	}
+	
 	
 }
