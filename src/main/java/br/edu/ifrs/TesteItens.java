@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Random;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -196,12 +196,14 @@ public class TesteItens {
 	    Assert.assertEquals("Sucesso\nElemento inativado com sucesso!", dsl.obterTexto(By.xpath(page.pathToast)));
 	}
 	
+	
 	@AfterClass
 	public static void cleanUp() {
 		page.reload();
 		page.irParaItens();
 		System.out.println(nomeDuplicado);
 		page.clicarExcluirPorNome(nomeDuplicado);
+		DriverFactory.killDriver();
 	}
 
 }
