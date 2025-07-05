@@ -8,7 +8,6 @@ public class MarcasPage {
 	private String pathBotaoSalvar = "/html/body/app-root/app-container/main/div/app-marca/div[1]/div/div/form/div[2]/button[2]";
 	private String pathBotaoNovo = "/html/body/app-root/app-container/main/div/app-marca/form/div/div[3]/div/button[3]";
 	private String pathBotaoUnidadesMedida = "/html/body/app-root/app-header/header/div/div/ul[1]/li[5]/a";
-	private String pathUnidadeCadastrada = "/html/body/app-root/app-container/main/div/app-marca/div[2]/table/tbody/tr[13]/td[3]/i";
 	private String pathFilter = "/html/body/app-root/app-container/main/div/app-marca/form/div/div[2]/div/input";
 	private String pathFilterButton = "/html/body/app-root/app-container/main/div/app-marca/form/div/div[3]/div/button[2]";
 	private String pathPrimeiroElementoFiltrado = "/html/body/app-root/app-container/main/div/app-marca/div[2]/table/tbody/tr[1]/td[2]";
