@@ -2,7 +2,7 @@ package br.edu.ifrs;
 
 import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Console;
+//import com.gargoylesoftware.htmlunit.javascript.host.Console;
 
 public class ItensPage {
 

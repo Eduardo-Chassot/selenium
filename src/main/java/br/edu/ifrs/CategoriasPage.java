@@ -54,7 +54,7 @@ public class CategoriasPage {
 	}
 
 	public void irParaCategorias() {
-		dsl.clicarBotao(pathBotaoCategorias);
+		dsl.clicarBotao(pathBotaoCategoria);
 	}
 
 	public void editar(String nome) {

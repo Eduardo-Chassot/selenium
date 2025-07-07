@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import net.datafaker.Faker;
 
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
