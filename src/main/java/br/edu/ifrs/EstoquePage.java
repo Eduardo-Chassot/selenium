@@ -2,7 +2,7 @@ package br.edu.ifrs;
 
 import org.openqa.selenium.By;
 
-public class EstoqueProject {
+public class EstoquePage {
     private String pathMensagemDescricaoDuplicada = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[1]";
 	private String pathMensagemSucesso = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[2]";
 	private String pathMensagemEditadoSucesso = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem";

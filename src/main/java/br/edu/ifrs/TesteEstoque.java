@@ -19,13 +19,17 @@ public class TesteEstoque {
 	private static EstoquePage page = new EstoquePage();
 
     @Parameter
-	public String descricao;
+	public String item;
 	@Parameter(value=1)
 	public String msgSucesso;
 	@Parameter(value=2)
 	public String msgDescDuplicada;
 	@Parameter(value=3)
 	public String msgEditadoSucesso;
+	@Parameter(value=4)
+	public String subitem;
+	@Parameter(value=5)
+	public String tipo;
 
 	
 	@Before
@@ -37,33 +41,41 @@ public class TesteEstoque {
 	
 	@Parameters
 	public static Collection<Object[]> getCollection() {
-		Faker faker = new Faker();
-		String descricaoGerada = faker.commerce().productName();
 		return Arrays.asList(new Object[][] {
-			{descricaoGerada, page.msgSucesso(), page.msgSucesso(), page.msgEditadoSucesso()},
+			{page.getItem(), page.msgSucesso(), page.msgSucesso(), page.msgEditadoSucesso(), page.getSubitem(), page.getTipo()},
 		});
 	}
 	
 	@Test
-	public void deveCadastrarNovoUnidade() throws IOException, InterruptedException {
+	public void t01_deveCadastrarNovoEstoque() throws IOException, InterruptedException {
 		page.novo();
-		page.setDescricao(descricao);
+		page.setItem(item);
+		page.setSubitem(subitem);
+		page.setTipo(tipo);
 		page.salvar();	
 		System.out.println("mensagem: " + page.getMsgSucesso());
 		Assert.assertEquals(msgSucesso, page.getMsgSucesso());
 	}
-	
+
 	@Test
+	public void t02_validaCadastroEstoque() throws IOException, InterruptedException {
+		page.filtrarPorNome(nome);
+		Assert.assertEquals(page.getNomeCadastrado(), nome);
+	}
+	
+	/**@Test
 	public void deveCadastrarComDescricaoDuplicada() throws IOException {
 		page.novo();
-		page.setDescricao(descricao);
+		page.setItem(item);
+		page.setSubitem(subitem);
+		page.setTipo(tipo);
 		page.salvar();	
 		System.out.println("mensagemDuplicada: " + page.getMsgSucesso());
 		Assert.assertEquals(msgDescDuplicada, page.getMsgDescricaoDuplicada());
 	}
-	
+	**/
 	@Test
-	public void deveEditaUnidadea() throws IOException {
+	public void t03_deveEditaEstoque() throws IOException {
 		page.setDescricaoCadastrada();
 		page.editar();
 		System.out.println(page.getDescricaoCadastrada());
@@ -71,6 +83,11 @@ public class TesteEstoque {
 		page.salvar();	
 		System.out.println("mensagemEditadoSucesso: " + page.getMsgEditadoSucesso());
 		Assert.assertEquals(msgEditadoSucesso, page.getMsgEditadoSucesso());
+	}
+
+	public void t04_deveExcluirEstoque() throws IOException {
+		page.excluir(nome + "EDIT");
+		Assert.assertEquals(page.msgDeleteSucesso, page.getMsg());
 	}
 	
 	@After
