@@ -3,7 +3,6 @@ package br.edu.ifrs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import net.datafaker.Faker;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -24,18 +23,13 @@ public class TesteEstoque {
 	@Parameter(value=1)
 	public String msgSucesso;
 	@Parameter(value=2)
-	public String msgDescDuplicada;
-	@Parameter(value=3)
-	public String msgEditadoSucesso;
-	@Parameter(value=4)
 	public String subitem;
-	@Parameter(value=5)
+	@Parameter(value=3)
 	public String tipo;
 
 	@BeforeClass
 	public static void setup() {
 	    Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
-		page.irParaEstoque();
 	}
 	
 	@Before
@@ -48,53 +42,37 @@ public class TesteEstoque {
 	@Parameters
 	public static Collection<Object[]> getCollection() {
 		return Arrays.asList(new Object[][] {
-			{page.getItem(), page.msgSucesso(), page.msgSucesso(), page.msgEditadoSucesso(), page.getSubitem(), page.getTipo()},
+			{page.getItem(), page.msgSucesso(), page.getSubitem(), page.getTipo()},
 		});
 	}
 	
 	@Test
-	public void t01_deveCadastrarNovoEstoque() throws IOException, InterruptedException {
+	public void t01_deveCadastrarNovoEstoqueEntrada() throws IOException, InterruptedException {
 		page.novo();
 		page.setItem(item);
 		page.setSubitem(subitem);
 		page.setTipo(tipo);
 		page.salvar();	
-		System.out.println("mensagem: " + page.getMsgSucesso());
-		Assert.assertEquals(msgSucesso, page.getMsgSucesso());
-	}
-
-	@Test
-	public void t02_validaCadastroEstoque() throws IOException, InterruptedException {
-		page.filtrarPorNome(nome);
-		Assert.assertEquals(page.getNomeCadastrado(), nome);
+		System.out.println("mensagem: " + page.getMsg());
+		Assert.assertEquals(msgSucesso, page.getMsg());
 	}
 	
-	/**@Test
-	public void deveCadastrarComDescricaoDuplicada() throws IOException {
+	
+	@Test
+	public void t02_deveCadastrarNovoEstoqueEntrada() throws IOException, InterruptedException {
 		page.novo();
 		page.setItem(item);
 		page.setSubitem(subitem);
 		page.setTipo(tipo);
 		page.salvar();	
-		System.out.println("mensagemDuplicada: " + page.getMsgSucesso());
-		Assert.assertEquals(msgDescDuplicada, page.getMsgDescricaoDuplicada());
-	}
-	**/
-	@Test
-	public void t03_deveEditaEstoque() throws IOException {
-		page.setDescricaoCadastrada();
-		page.editar();
-		System.out.println(page.getDescricaoCadastrada());
-		page.setDescricao(page.getDescricaoCadastrada() + "EDIT");
-		page.salvar();	
-		System.out.println("mensagemEditadoSucesso: " + page.getMsgEditadoSucesso());
-		Assert.assertEquals(msgEditadoSucesso, page.getMsgEditadoSucesso());
+		System.out.println("mensagem: " + page.getMsg());
+		Assert.assertEquals(msgSucesso, page.getMsg());
 	}
 
-	public void t04_deveExcluirEstoque() throws IOException {
-		page.excluir(nome + "EDIT");
-		System.out.println("mensagem delet: " + page.msgDeleteSucesso());
-		Assert.assertEquals(page.msgDeleteSucesso, page.getMsg());
+	public void t03_deveExcluirEstoque() throws IOException {
+		page.excluir(item);
+		System.out.println("mensagem delet: " + page.getMsgDeleteSucesso());
+		Assert.assertEquals(page.getMsgDeleteSucesso(), page.getMsg());
 	}
 	
 	@After

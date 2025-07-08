@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 //import net.datafaker.Faker;
 
 public class UnidadesMedidaPage {
-	private String pathMensagemDescricaoDuplicada = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[1]";
+	private String pathMensagemDescricaoDuplicada = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[2]";
 	private String pathMensagemSucesso = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[2]";
-	private String pathMensagemEditadoSucesso = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem";
+	private String pathMensagemEditadoSucesso = "/html/body/app-root/app-container/main/div/app-unidade-medida/p-toast/div/p-toastitem/div/div/div/div[2]";
 	private String pathBotaoSalvar = "/html/body/app-root/app-container/main/div/app-unidade-medida/div[1]/div/div/form/div[2]/button[2]";
 	private String pathBotaoNovo = "/html/body/app-root/app-container/main/div/app-unidade-medida/form/div/div[3]/div/button[3]";
 	private String pathBotaoUnidadesMedida = "/html/body/app-root/app-header/header/div/div/ul[1]/li[3]/a";
@@ -15,9 +15,13 @@ public class UnidadesMedidaPage {
 	
 	private String msgSucesso = "Medida cadastrada com sucesso!";
 	private String msgDescricaoDuplicada = "Já existe uma Unidade de Medida com a mesma descrição!";
-	private String msgEditadoSucesso = "Medida editada com sucesso";
+	private String msgEditadoSucesso = "Medida editada com sucesso!";
 	
 	private DSL dsl = new DSL();
+	
+	public void reload(){
+		dsl.reload();
+	}
 	
 	public void setDescricao (String descricao) {
 		dsl.escrever("descricao", descricao);

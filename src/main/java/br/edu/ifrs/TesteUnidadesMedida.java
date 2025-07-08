@@ -5,9 +5,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import net.datafaker.Faker;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -27,10 +28,14 @@ public class TesteUnidadesMedida {
 	@Parameter(value=3)
 	public String msgEditadoSucesso;
 
+	@BeforeClass
+	public static void setUpClass() {
+	Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
+	}
 	
 	@Before
 	public void logar(){
-	    Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
+		page.reload();
 		page.irParaUnidadesMedida();
 	}
 	
@@ -40,7 +45,7 @@ public class TesteUnidadesMedida {
 		Faker faker = new Faker();
 		String descricaoGerada = faker.commerce().productName();
 		return Arrays.asList(new Object[][] {
-			{descricaoGerada, page.msgSucesso(), page.msgSucesso(), page.msgEditadoSucesso()},
+			{descricaoGerada, page.msgSucesso(), page.msgDescricaoDuplicada(), page.msgEditadoSucesso()},
 		});
 	}
 	
@@ -58,7 +63,7 @@ public class TesteUnidadesMedida {
 		page.novo();
 		page.setDescricao(descricao);
 		page.salvar();	
-		System.out.println("mensagemDuplicada: " + page.getMsgSucesso());
+		System.out.println("mensagemDuplicada: " + page.getMsgDescricaoDuplicada());
 		Assert.assertEquals(msgDescDuplicada, page.getMsgDescricaoDuplicada());
 	}
 	
@@ -73,8 +78,8 @@ public class TesteUnidadesMedida {
 		Assert.assertEquals(msgEditadoSucesso, page.getMsgEditadoSucesso());
 	}
 	
-	@After
-	public void fechar() throws InterruptedException{
+	@AfterClass
+	public static void fechar() throws InterruptedException{
 		DriverFactory.killDriver();
 	}
 	
