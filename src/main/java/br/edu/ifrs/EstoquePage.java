@@ -3,11 +3,14 @@ package br.edu.ifrs;
 import org.openqa.selenium.By;
 
 public class EstoquePage {
-	//private String pathMensagem = "/html/body/app-root/app-container/main/div/app-marca/p-toast/div/p-toastitem/div/div/div/div[2]";
-	//private String pathMensagemEditadoSucesso = "/html/body/app-root/app-container/main/div/app-marca/p-toast/div/p-toastitem";
-	//private String pathBotaoSalvar = "/html/body/app-root/app-container/main/div/app-marca/div[1]/div/div/form/div[2]/button[2]";
+	private String pathMensagem = "/html/body/app-root/app-container/main/div/app-movimentacao/p-toast/div/p-toastitem/div/div/div/div[2]";
+	private String pathMensagemEditadoSucesso = "/html/body/app-root/app-container/main/div/app-movimentacao/p-toast/div/p-toastitem";
+	private String pathBotaoSalvar = "/html/body/app-root/app-container/main/div/app-movimentacao/div[1]/div/div/form/div[2]/button[2]";
 	private String pathBotaoNovo = "/html/body/app-root/app-container/main/div/app-movimentacao/form/div/div[5]/div/button[3]";
 	private String pathBotaoEstoque = "/html/body/app-root/app-header/header/div/div/ul[1]/li[7]";
+	private String pathCampoItem = "/html/body/app-root/app-container/main/div/app-movimentacao/div[1]/div/div/form/div[1]/div[1]/div[1]/select";
+	private String pathCampoSubitem = "/html/body/app-root/app-container/main/div/app-movimentacao/div[1]/div/div/form/div[1]/div[1]/div[2]/select";
+	private String pathCampoTipo = "/html/body/app-root/app-container/main/div/app-movimentacao/div[1]/div/div/form/div[1]/div[2]/div[1]/select";
 	//private String pathFilter = "/html/body/app-root/app-container/main/div/app-marca/form/div/div[2]/div/input";
 	//private String pathFilterButton = "/html/body/app-root/app-container/main/div/app-marca/form/div/div[3]/div/button[2]";
 	//private String pathPrimeiroElementoFiltrado = "/html/body/app-root/app-container/main/div/app-marca/div[2]/table/tbody/tr[1]/td[2]";
@@ -17,7 +20,7 @@ public class EstoquePage {
 	//private String msgSucesso = "Marca cadastrada com sucesso!";
 	//private String msgDescricaoDuplicada = "Já existe uma Marca com o mesmo nome!";
 	//private String msgEditadoSucesso = "Marca editada com sucesso!";
-	public String msgDeleteSucesso = "Marca inativada com sucesso!";
+	public String msgDeleteSucesso = "Estoque inativada com sucesso!";
 	
 	private DSL dsl = new DSL();
 	
@@ -28,10 +31,28 @@ public class EstoquePage {
 	//Campos
 	
 	
-	public void getItem (String descricao) {
-		dsl.obterValueCombo("cadastro_elemento");
-		dsl.selecionarComboByValue("cadastro_elemento", String valor);
+	public String getItem () {
+		return dsl.obterValueCombo(pathCampoItem);
 	}
+	public void setItem(String item) {
+		dsl.selecionarComboXPath(pathCampoItem, item);
+	}
+	
+	
+	public String getSubitemtem () {
+		return dsl.obterValueCombo(pathCampoSubitem);
+	}
+	public void setSubitem(String subitem) {
+		dsl.selecionarComboXPath(pathCampoItem, subitem);
+	}
+	
+	public String getTipo () {
+		return dsl.obterValueCombo(pathCampoTipo);
+	}
+	public void setTipo(String tipo) {
+		dsl.selecionarComboXPath(pathCampoItem, tipo);
+	}
+
 
 	//Botões
 	

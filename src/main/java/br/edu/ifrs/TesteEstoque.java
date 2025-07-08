@@ -8,6 +8,7 @@ import net.datafaker.Faker;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -31,11 +32,16 @@ public class TesteEstoque {
 	@Parameter(value=5)
 	public String tipo;
 
+	@BeforeClass
+	public static void setup() {
+	    Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
+		page.irParaEstoque();
+	}
 	
 	@Before
 	public void logar(){
-	    Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
-		page.irParaUnidadesMedida();
+		page.reload();
+		page.irParaEstoque();
 	}
 	
 	
@@ -87,6 +93,7 @@ public class TesteEstoque {
 
 	public void t04_deveExcluirEstoque() throws IOException {
 		page.excluir(nome + "EDIT");
+		System.out.println("mensagem delet: " + page.msgDeleteSucesso());
 		Assert.assertEquals(page.msgDeleteSucesso, page.getMsg());
 	}
 	

@@ -55,10 +55,7 @@ public class TesteItens {
 
 	@BeforeClass
 	public static void setUpClass() {
-	    DriverFactory.getDriver().get("http://35.209.123.161/front");
-	    loginPage.setEmail("eduardo.chassot@aluno.feliz.ifrs.edu.br");
-	    loginPage.setSenha("ratones");
-	    loginPage.logar();
+		Login.login("eduardo.chassot@aluno.feliz.ifrs.edu.br", "ratones");
 
         criarItemBase(nomeDuplicado, codigoDuplicado);
 	}
