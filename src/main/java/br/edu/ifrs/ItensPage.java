@@ -75,7 +75,7 @@ public class ItensPage {
 	
 	public void clicarEditarPorNome(String nomeItem){
 		this.filtrarPorNome(nomeItem);
-        String xpathBotaoEditar = "//td[contains(normalize-space(.), '" + nomeItem + "')]/parent::tr//i[contains(@class, 'fa-regular')]";
+        String xpathBotaoEditar = "/html/body/app-root/app-container/main/div/app-lista-elemento/div/table/tbody/tr[1]/td[4]";
         dsl.clicarBotao(xpathBotaoEditar);
 	}
 	

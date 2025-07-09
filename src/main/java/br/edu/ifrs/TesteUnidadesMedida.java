@@ -78,6 +78,11 @@ public class TesteUnidadesMedida {
 		Assert.assertEquals(msgEditadoSucesso, page.getMsgEditadoSucesso());
 	}
 	
+	public void t07_deveExcluirUnidade() throws IOException {
+		page.excluir(descricao + "EDIT");
+		Assert.assertEquals(page.getMsgDeleteSucesso(), page.getMsg());
+	}
+	
 	@AfterClass
 	public static void fechar() throws InterruptedException{
 		DriverFactory.killDriver();

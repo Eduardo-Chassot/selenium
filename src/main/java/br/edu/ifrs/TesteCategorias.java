@@ -105,7 +105,13 @@ public class TesteCategorias {
 		Assert.assertEquals(msgEditadoSucesso, page.getMsg());
 	}
 	
-	public void t06_deveExcluirCategoria() throws IOException {
+	public void t06_validaCadastroCategoriaEdit() throws IOException, InterruptedException {
+		page.filtrarPorNome(nome + "EDIT");
+		Assert.assertEquals(page.getNomeCadastrado(), nome + "EDIT");
+	}
+	
+	
+	public void t07_deveExcluirCategoria() throws IOException {
 		page.excluir(nome + "EDIT");
 		Assert.assertEquals(page.msgDeleteSucesso, page.getMsg());
 	}

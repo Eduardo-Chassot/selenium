@@ -68,7 +68,7 @@ public class TesteItens {
         page.setStatus("A");
         page.setCodigo(codigo);
         page.setCategoria("494");
-        page.setUnidadeMedida("559");
+        page.setUnidadeMedida("463");
         page.setValorMinimo("100");
         page.enviarItem();
  
@@ -87,9 +87,9 @@ public class TesteItens {
 	@Parameters
 	public static Collection<Object[]> getCollection() {
 		return Arrays.asList(new Object[][] {
-			{"I", codigoDuplicado, CATEGORIA_PADRAO, faker.lorem().characters(10, 20), "559", faker.number().digit(), true, true, "Error: Já existe um Elemento com o mesmo código!"},
-			{"I", faker.number().digits(15), CATEGORIA_PADRAO, nomeDuplicado, "407", "15", false, false, "Error: Já existe um Elemento com o mesmo nome!"},
-			{"A", faker.number().digits(15), CATEGORIA_PADRAO, faker.lorem().characters(10, 20), "407", "10", true, false, "Item cadastrado com sucesso!"}
+			{"I", codigoDuplicado, CATEGORIA_PADRAO, faker.lorem().characters(10, 20), "463", faker.number().digit(), true, true, "Error: Já existe um Elemento com o mesmo código!"},
+			{"I", faker.number().digits(15), CATEGORIA_PADRAO, nomeDuplicado, "463", "15", false, false, "Error: Já existe um Elemento com o mesmo nome!"},
+			{"A", faker.number().digits(15), CATEGORIA_PADRAO, faker.lorem().characters(10, 20), "463", "10", true, false, "Item cadastrado com sucesso!"}
 		});
 	}
 
